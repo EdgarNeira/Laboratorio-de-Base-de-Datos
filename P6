@@ -1,0 +1,62 @@
+select * from Maestro
+select * from Maestro_Titulo --1
+select * from Salon --
+select * from Turno --
+select * from Grupo --
+select * from Grupo_Materia --
+select * from Titulo --1
+select * from Materia_Maestro --
+select * from Materia
+
+create view P2 as
+select G.IdGrupo as Grupo, Sa.Capacidad as Capacidad
+from Grupo G
+inner join Salon as Sa on Sa.IdSalon = G.IdSalon
+
+select * from P2
+
+create view P1 as
+select Ma.MatNom as Materia, Mat.IdMaestro as Maestro
+from Materia Ma
+join Materia_Maestro Mat on Mat.IdMateria = Ma.IdMateria
+
+select * from p1
+
+create view P3 as
+select M.NomMaestro, Mat.IdTitulo
+from Maestro M
+full join Maestro_Titulo as Mat on Mat.IdMaestro = M.IdMaestro
+
+select * from P3
+
+create view P4 as
+select G.IdGrupo as Grupo, T.TipoTurno
+from Grupo G
+left join Turno as T on T.IdTurno = G.IdTurno
+
+select * from P4
+
+create view P5 as
+select Gr.IdGrupoMateria as Grupo, Ma.IdMaestro as Maestro
+from Grupo_Materia Gr
+right join Materia_Maestro as Ma on Ma.IdMateriaMaestro = Gr.IdMateriaMaestro
+
+select * from P5
+
+create view P6 as
+select Count(Sa.Capacidad) as 'Cuantos hay'
+from Salon Sa
+group by Sa.Capacidad
+
+select * from P6
+
+with P1 as (select Ma.MatNom, Count(Mat.IdMaestro) from Materia as Ma, Materia_Maestro as Mat group by MatNom) select * from P1
+
+
+
+select Ma.MatNom as Materia, Mat.IdMaestro
+into #Temporall
+from Materia as Ma, Materia_Maestro as Mat
+where Ma.IdMateria = Mat.IdMateria
+
+select *from #Temporall
