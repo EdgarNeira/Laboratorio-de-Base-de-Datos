@@ -1,0 +1,46 @@
+create procedure P_2
+as begin
+select G.IdGrupo as Grupo, Sa.Capacidad as Capacidad
+from Grupo G
+inner join Salon as Sa on Sa.IdSalon = G.IdSalon
+end
+
+exec P_2
+--------------------------------------------------------------
+create procedure P_1
+as begin
+select Ma.MatNom as Materia, Mat.IdMaestro as Maestro
+from Materia Ma
+join Materia_Maestro Mat on Mat.IdMateria = Ma.IdMateria
+end
+
+exec P_1
+-----------------------------------------------------------------
+create procedure P_3
+as begin
+select M.NomMaestro, Mat.IdTitulo
+from Maestro M
+full join Maestro_Titulo as Mat on Mat.IdMaestro = M.IdMaestro
+end
+
+exec P_3
+-----------------------------------------------------------------
+create procedure P_4
+as begin
+select G.IdGrupo as Grupo, T.TipoTurno
+from Grupo G
+left 
+join Turno as T on T.IdTurno = G.IdTurno
+end
+
+exec P_4
+-------------------------------------------------------------------
+create procedure P_5
+as begin
+select Gr.IdGrupoMateria as Grupo, Ma.IdMaestro as Maestro
+from Grupo_Materia Gr
+right 
+join Materia_Maestro as Ma on Ma.IdMateriaMaestro = Gr.IdMateriaMaestro
+end 
+
+exec P_5
